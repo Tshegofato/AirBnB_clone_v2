@@ -22,13 +22,10 @@ def do_pack():
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
 
     # Create the archive filename
-    archive_name = "web_static_" + timestamp + ".tgz"
+    archive_name = "web_static_{}.tgz".format(timestamp)
 
     # Compress the web_static folder into the archive
-    result = local("tar -cvzf versions/{} web_static".format(archive_name))
+    local("tar -cvzf versions/{} web_static".format(archive_name))
 
-    # Return the archive path if successful, otherwise return None
-    if result.succeeded:
-        return os.path.join("versions", archive_name)
-    else:
-        return None
+    # Return the archive path
+    return os.path.join("versions", archive_name)
